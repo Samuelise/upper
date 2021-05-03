@@ -7,8 +7,10 @@ using System.Windows.Forms;
 using System.IO.Ports;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Linq;
 using System.IO;
 using System.Text;
+using System.Collections.Generic;
 
 //自定义命名空间
 namespace upper
@@ -17,6 +19,12 @@ namespace upper
     //定义一个Form1公共类，并创建一个对象
     public partial class Form1 : Form
     {
+        public const byte NO_IMAGE_MODE = 1;   //不传图像
+        public const byte ALL_DATA_MODE = 2;   //传图像和其他数据
+        public byte slave_mode = 1;            //数据传输模式（默认为不传图像）
+
+        private List<byte> buffer = new List<byte>(23000);
+
         //串口控件
         SerialPort serialPort1 = new SerialPort();
         //与类同名的构造方法
@@ -43,6 +51,8 @@ namespace upper
             button1.BackColor = Color.ForestGreen;
 
         }
+
+        //串口开关
         private void button1_Click(object sender, EventArgs e)
         {
             //可能产生异常的代码放到try中
@@ -90,47 +100,42 @@ namespace upper
             }
         }
 
-        private int isimage;
+
         private byte[] imagebuff = new byte[188 * 120];
         private int getImage = 0;
 
+        //数据解析
         private void Analyze(byte[] buf)
         {
             int offset = 0;
-            if (isimage == 0&&buf.Length>=4)
+
+
+            switch (slave_mode)
             {
-                byte[] jianyan = new byte[4];
-                Array.Copy(buf, offset, jianyan, 0, 4);
-                offset += 4;
-                if (jianyan[0] == 0x00 && jianyan[1] == 0xff && jianyan[2] == 0x01 && jianyan [3] == 0x01)
-                {
-                    isimage = 1;
-                    textBox1.Text = "getting image data...";
-                 }
-                else if(jianyan[0] == 0x00 && jianyan[1] == 0xff && jianyan[2] == 0x10 && jianyan[3] == 0x10)
-                {
-                    isimage = 2;
-                    textBox1.Text = "getting data...";
-                }
-                else
-                {
-                    textBox1.Text = "帧头不对";
-                }
-            }
-            if (isimage == 1)
-            {
-                int count = buf.Length - offset;
-                Array.Copy(buf, offset, imagebuff, 0, 180 * 120);
-                offset += 180 * 122;
+                case ALL_DATA_MODE:
+                    break;
+                case NO_IMAGE_MODE:
+                    break;
+                default:
+                    textBox1.AppendText("undefined mode!");
+                    break;
             }
 
         }
+
 
         private void SerialPort1_DataReceive(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
         {
             int count = serialPort1.BytesToRead;
             byte[] buff = new byte[count];
             serialPort1.Read(buff, 0, count);
+            buffer.AddRange(buff); //缓存数据
+            //完整性判断
+            while (buffer.Count >= 7)
+            {
+                //查找数据头（2位）
+
+            }
             Analyze(buff);
             if (getImage == 1)
             {
@@ -221,7 +226,7 @@ namespace upper
             return result;
         }
 
-        //保存tmp.bmp
+        //保存图片：save image
         private void button8_Click(object sender, EventArgs e)
         {
             //test.txt中存保存序号起点
@@ -245,8 +250,15 @@ namespace upper
             //关闭流
             sw.Close();
             fs.Close();
-            textBox1.Text  ="save OK! "+ x.ToString()+".bmp";
+            textBox1.AppendText("save OK! " + x.ToString() + ".bmp");
 
+        }
+
+
+        //发送数据使下位机发送图像，并在上位机显示
+        private void button9_Click(object sender, EventArgs e)
+        {
+            textBox1.AppendText("show image mode."+System.Environment.NewLine);
         }
     }
 }

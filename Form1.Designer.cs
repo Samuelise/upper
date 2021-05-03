@@ -36,6 +36,8 @@ namespace upper
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.button4 = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
@@ -47,6 +49,7 @@ namespace upper
             this.panel5 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.button9 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
             this.panel7 = new System.Windows.Forms.Panel();
             this.checkBox6 = new System.Windows.Forms.CheckBox();
@@ -58,14 +61,12 @@ namespace upper
             this.button6 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.panel8 = new System.Windows.Forms.Panel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // button2
@@ -117,11 +118,30 @@ namespace upper
             // 
             // panel4
             // 
+            this.panel4.Controls.Add(this.textBox1);
             this.panel4.Controls.Add(this.pictureBox1);
             this.panel4.Location = new System.Drawing.Point(214, 0);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(480, 329);
+            this.panel4.Size = new System.Drawing.Size(389, 329);
             this.panel4.TabIndex = 3;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(0, 246);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBox1.Size = new System.Drawing.Size(376, 83);
+            this.textBox1.TabIndex = 1;
+            this.textBox1.WordWrap = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(376, 240);
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
             // 
             // label1
             // 
@@ -198,9 +218,9 @@ namespace upper
             // 
             // panel5
             // 
-            this.panel5.Location = new System.Drawing.Point(700, 0);
+            this.panel5.Location = new System.Drawing.Point(609, 0);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(306, 329);
+            this.panel5.Size = new System.Drawing.Size(397, 329);
             this.panel5.TabIndex = 4;
             // 
             // panel6
@@ -212,16 +232,26 @@ namespace upper
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.textBox1);
+            this.panel2.Controls.Add(this.button9);
             this.panel2.Controls.Add(this.button8);
             this.panel2.Location = new System.Drawing.Point(0, 168);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(208, 161);
             this.panel2.TabIndex = 1;
             // 
+            // button9
+            // 
+            this.button9.Location = new System.Drawing.Point(36, 94);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(114, 45);
+            this.button9.TabIndex = 1;
+            this.button9.Text = "show image";
+            this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
+            // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(38, 20);
+            this.button8.Location = new System.Drawing.Point(36, 27);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(114, 45);
             this.button8.TabIndex = 0;
@@ -323,21 +353,6 @@ namespace upper
             this.panel8.Size = new System.Drawing.Size(792, 222);
             this.panel8.TabIndex = 7;
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(480, 329);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(12, 91);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(173, 23);
-            this.textBox1.TabIndex = 1;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -357,13 +372,13 @@ namespace upper
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
             this.panel7.ResumeLayout(false);
             this.panel7.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -399,6 +414,7 @@ namespace upper
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button button9;
     }
 }
 
